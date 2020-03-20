@@ -1,0 +1,53 @@
+#include <Servo.h>
+Servo servo;
+int angle = 0;
+
+int speedMax = 500;
+int speedMin = 50;
+
+void setup() {
+  servo.attach(8);
+  servo.write(angle);
+}
+void loop() 
+{ 
+  //wiggle();
+  carriageReturn();
+  
+}
+
+void carriageReturn(){
+  // now scan back from 180 to 0 degrees
+  for(angle = 180; angle > 10; angle--)    
+  {                                
+    servo.write(angle);
+    if ( angle % 20 == 0){           
+      delay(random(speedMin, speedMax));       
+    } else { delay(2);}
+  }
+  for(angle = 10; angle < 180; angle++)  
+  {                                  
+    servo.write(angle);               
+    delay(2);                   
+  }  
+  delay(1500);
+}
+
+
+void wiggle(){
+   // scan from 0 to 180 degrees
+  for(angle = 10; angle < 180; angle++)  
+  {                                  
+    servo.write(angle);               
+    delay(30);                   
+  } 
+  // now scan back from 180 to 0 degrees
+  for(angle = 180; angle > 10; angle--)    
+  {                                
+    if (angle == 100){
+      delay(1500);
+      }
+    servo.write(angle);           
+    delay(2);       
+  } 
+}
